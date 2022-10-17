@@ -30,7 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        let sceneCoordinator = SceneCoordinator(window: window!)
+        let weatherApi = OpenWeatherMapApi()
+        let locationProvider = StaticLocationProvider()
         
+        let viewModel = MainViewModel(title: "", sceneCoordinator: sceneCoordinator, weatherApi: weatherApi, locationProvider: locationProvider)
+        
+        let scene = Scene.main(viewModel)
+        
+        sceneCoordinator.transition(to: scene, using: .root, animated: false)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
